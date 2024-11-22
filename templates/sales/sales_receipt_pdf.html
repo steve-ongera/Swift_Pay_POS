@@ -75,9 +75,14 @@
 </head>
 <body>
     <div class="container">
-        <!-- QR Code on the Right Side -->
+     
+
         <div class="qr-code">
-            <img src="/media/qrcode.png" alt="QR Code" width="80">
+            {% if sale.qr_code %}
+                <img src="{{ sale.qr_code.url }}" alt="QR Code" width="80">
+            {% else %}
+               <img src="/media/qrcode.png" alt="QR Code" width="80">
+            {% endif %}
         </div>
 
         <div class="receipt-details">
