@@ -4,6 +4,16 @@ from customers.models import Customer
 from products.models import Product
 
 
+import random
+import string
+
+def generate_order_id():
+    """Generate a random order ID consisting of letters and numbers."""
+    characters = string.ascii_letters + string.digits
+    return ''.join(random.choices(characters, k=10))  # generates a 10-character order ID
+
+
+
 class Sale(models.Model):
     date_added = models.DateTimeField(default=django.utils.timezone.now)
     customer = models.ForeignKey(
@@ -15,6 +25,7 @@ class Sale(models.Model):
     amount_payed = models.FloatField(default=0)
     amount_change = models.FloatField(default=0)
     qr_code = models.ImageField(upload_to='qrcodes/', blank=True, null=True)
+    order_id = models.CharField(max_length=15, unique=True, blank=True, null=True)
     
 
     class Meta:
@@ -26,6 +37,12 @@ class Sale(models.Model):
     def sum_items(self):
         details = SaleDetail.objects.filter(sale=self.id)
         return sum([d.quantity for d in details])
+    
+    def save(self, *args, **kwargs):
+        # Ensure order_id is set if not already set
+        if not self.order_id:
+            self.order_id = generate_order_id()
+        super(Sale, self).save(*args, **kwargs)
 
 
 class SaleDetail(models.Model):
