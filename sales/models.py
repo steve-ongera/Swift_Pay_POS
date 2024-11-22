@@ -15,6 +15,7 @@ class Sale(models.Model):
     amount_payed = models.FloatField(default=0)
     amount_change = models.FloatField(default=0)
     qr_code = models.ImageField(upload_to='qrcodes/', blank=True, null=True)
+    
 
     class Meta:
         db_table = 'Sales'
