@@ -37,7 +37,6 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th style="width:5%">#</th>
                             <th style="width:20%">Name</th>
                             <th style="width:25%">Description</th>
                             <th style="width:15%">Category</th>
@@ -50,11 +49,10 @@
                         {% for p in products %}
                         <tr>
                             <td>{{p.id}}</td>
-                            <td>{{forloop.counter}}</td>
                             <td>{{p.name}}</td>
                             <td>{{p.description}}</td>
                             <td>{{p.category}}</td>
-                            <td class="text-right">{{p.price}} $</td>
+                            <td class="text-right">{{p.price}} Ksh</td>
                             {% if p.status == "ACTIVE" %}
                             <td class="text-center">
                                 <span class="badge badge-success" style="font-size:0.8em;">{{p.status}}</span>
@@ -132,8 +130,8 @@
 <!--Datatables-->
 <script>
     // Call the dataTables jQuery plugin
-    $(document).ready(function() {
-        tblProducts = $('#dataTable').DataTable({
+    Ksh(document).ready(function() {
+        tblProducts = Ksh('#dataTable').DataTable({
             dom: 'Bfrtip', // Buttons are draw at this element
             buttons: [
                 {
@@ -229,12 +227,12 @@
     });
 
 // Alert when trying to delete a product
-$('#dataTable tbody')
+Ksh('#dataTable tbody')
     // Event when whe try to delete a product
     // We update the text, and href of the modal delete button
     .on('click', 'button[rel="delete"]', function () {
     // Row variable
-    var tr = tblProducts.cell($(this).closest('td, li')).index();
+    var tr = tblProducts.cell(Ksh(this).closest('td, li')).index();
     row_data = ( tblProducts.row(tr.row).data());
     product_id = row_data[0];
     product_name = row_data[2]
