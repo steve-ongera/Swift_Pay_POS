@@ -180,3 +180,20 @@ def receipt_pdf_view(request, sale_id):
         messages.error(request, f'Error generating PDF: {str(e)}', extra_tags="danger")
         return redirect('sales:sales_list')
     
+
+def search_order(request):
+    query = request.GET.get('order_id', '').strip()  # Get the query from the GET parameter
+    result = None
+    error = None
+
+    if query:  # Only search if there's input
+        try:
+            result = Sale.objects.get(order_id=query)
+        except Sale.DoesNotExist:
+            error = "No order found with the provided Order ID."
+
+    return render(request, 'sales/search_order.html', {
+        'query': query,
+        'result': result,
+        'error': error,
+    })
