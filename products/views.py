@@ -290,3 +290,21 @@ def get_products_ajax_view(request):
                 data.append(item)
 
             return JsonResponse(data, safe=False)
+
+
+def search_product(request):
+    query = request.GET.get("product_name")  # Get the search input
+    results = None
+    error = None
+
+    if query:
+        results = Product.objects.filter(name__icontains=query)
+        if not results.exists():
+            error = f"No products found matching '{query}'."
+
+    context = {
+        "query": query,
+        "results": results,
+        "error": error,
+    }
+    return render(request, "products/product_search.html", context)

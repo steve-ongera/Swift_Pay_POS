@@ -131,3 +131,23 @@ def customers_delete_view(request, customer_id):
             request, 'There was an error during the elimination!', extra_tags="danger")
         print(e)
         return redirect('customers:customers_list')
+
+
+def search_customer(request):
+    query = request.GET.get("customer_name")  # Get the search input
+    results = None
+    error = None
+
+    if query:
+        results = Customer.objects.filter(
+            first_name__icontains=query
+        ) | Customer.objects.filter(last_name__icontains=query)
+        if not results.exists():
+            error = f"No customers found matching '{query}'."
+
+    context = {
+        "query": query,
+        "results": results,
+        "error": error,
+    }
+    return render(request, "customers/search_customer.html", context)

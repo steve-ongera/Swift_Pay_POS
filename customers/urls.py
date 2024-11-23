@@ -14,4 +14,5 @@ urlpatterns = [
     # Delete customer
     path('delete/<str:customer_id>',
          views.customers_delete_view, name='customers_delete'),
+    path("search-customer/", views.search_customer, name="search_customer"),     
 ]

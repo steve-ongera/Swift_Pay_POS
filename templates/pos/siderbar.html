@@ -57,6 +57,10 @@
             <li class="nav-item">
               <a class="nav-link pl-3" href="{% url 'products:products_list' %}"><span class="ml-1 item-text">Product List </span></a>
             </li>
+
+            <li class="nav-item">
+              <a class="nav-link pl-3" href="{% url 'products:search_products' %}"><span class="ml-1 item-text">Search Product </span></a>
+            </li>
             
             
           </ul>
@@ -158,7 +162,7 @@
             <span class="ml-3 item-text">Contacts</span>
           </a>
           <ul class="collapse list-unstyled pl-4 w-100" id="contact">
-            <a class="nav-link pl-3" href="#"><span class="ml-1">Contact List</span></a>
+            <a class="nav-link pl-3" href="{% url 'customers:search_customer'%}"><span class="ml-1">Search Customer</span></a>
             <a class="nav-link pl-3" href="#"><span class="ml-1">Contact Grid</span></a>
             <a class="nav-link pl-3" href="#"><span class="ml-1">New Contact</span></a>
           </ul>
