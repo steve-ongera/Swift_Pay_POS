@@ -3,14 +3,12 @@ import django.utils.timezone
 from customers.models import Customer
 from products.models import Product
 
-
+from django.utils import timezone
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 import random
 import string
 
-def generate_order_id():
-    """Generate a random order ID consisting of letters and numbers."""
-    characters = string.ascii_letters + string.digits
-    return ''.join(random.choices(characters, k=10))  # generates a 10-character order ID
 
 
 
@@ -38,11 +36,14 @@ class Sale(models.Model):
         details = SaleDetail.objects.filter(sale=self.id)
         return sum([d.quantity for d in details])
     
-    def save(self, *args, **kwargs):
-        # Ensure order_id is set if not already set
-        if not self.order_id:
-            self.order_id = generate_order_id()
-        super(Sale, self).save(*args, **kwargs)
+
+@receiver(pre_save, sender=Sale)
+def generate_order_id(sender, instance, **kwargs):
+    if not instance.order_id:
+        instance.order_id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
+
+# Make sure to connect the signal
+default_app_config = 'sales.apps.SalesConfig'
 
 
 class SaleDetail(models.Model):

@@ -1,17 +1,9 @@
 {% extends "pos/base.html" %}
 
-<!-- Page title  -->
-{% block title %}Add product{% endblock title %}
 
-<!-- Specific Page CSS goes HERE  -->
-{% block stylesheets %}{% endblock stylesheets %}
-
-<!-- Page Heading -->
-{% block heading %}Add product{% endblock heading %}
-
-<!-- Page content  -->
 {% block content %}
 <!--Go back-->
+<main role="main" class="main-content">
 <div class="row ml-0 mb-3">
     <a href="{% url 'products:products_list' %}">
         <button type="button" class="btn btn-info font-weight-bold">
@@ -71,6 +63,7 @@
         </div>
     </div>
 </div>
+</main>
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->

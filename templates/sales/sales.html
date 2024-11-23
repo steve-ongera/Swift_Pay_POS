@@ -1,21 +1,10 @@
 {% extends "pos/base.html" %}
 {% load static %}
-<!-- Page title  -->
-{% block title %}Sales{% endblock title %}
-
-<!-- Specific Page CSS goes HERE  -->
-{% block stylesheets %}
-<!-- Datatables -->
-<link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css ' %}" rel="stylesheet">
-<link href="{% static 'css/pagination_buttons.css ' %}" rel="stylesheet">
-{% endblock stylesheets %}
-
-<!-- Page Heading -->
-{% block heading %}Sales{% endblock heading %}
 
 <!-- Page content  -->
 {% block content %}
-
+<main role="main" class="main-content">
+    <div class="container-fluid">
     <!--Create new sale-->
     <div class="row ml-0 mb-3">
         <a href="{% url 'sales:sales_add' %}">
@@ -58,13 +47,13 @@
                                 <!--View-->
                                 <a href="{% url 'sales:sales_details' s.id %}" class="text-decoration-none">
                                     <button type="button" class="btn btn-info btn-sm" data-bs-toggle="tooltip" title="Update sale">
-                                        <i class="fas fa-eye"></i>
+                                        <i class="fe fe-eye"></i>
                                     </button>
                                 </a>
                                 <!--Print receipt-->
                                 <a href="{% url 'sales:sales_receipt_pdf' s.id %}" class="text-decoration-none">
                                     <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="tooltip" title="View Receipt">
-                                        <i class="fas fa-receipt"></i>
+                                        <i class="fe fe-printer"></i>
                                     </button>
                                 </a>
                             </td>
@@ -75,6 +64,9 @@
             </div>
         </div>
     </div>
+
+</div>
+</main> 
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->

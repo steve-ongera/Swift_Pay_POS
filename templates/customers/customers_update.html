@@ -1,16 +1,9 @@
 {% extends "pos/base.html" %}
 
-<!-- Page title  -->
-{% block title %}Update customer{% endblock title %}
 
-<!-- Specific Page CSS goes HERE  -->
-{% block stylesheets %}{% endblock stylesheets %}
-
-<!-- Page Heading -->
-{% block heading %}Update customer{% endblock heading %}
-
-<!-- Page content  -->
 {% block content %}
+<main role="main" class="main-content">
+    <div class="container-fluid">
 <!--Go back-->
 <div class="row ml-0 mb-3">
     <a href="{% url 'customers:customers_list' %}">
@@ -62,6 +55,8 @@
         </div>
     </div>
 </div>
+</div>
+</main>
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->

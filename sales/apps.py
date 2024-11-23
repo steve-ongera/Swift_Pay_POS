@@ -7,3 +7,6 @@ class SalesConfig(AppConfig):
 
     def ready(self):
         import sales.signals  # Import signals to register the signal handler
+
+    def ready(self):
+        import sales.models  # This imports the signals    

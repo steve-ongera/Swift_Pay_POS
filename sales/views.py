@@ -179,3 +179,4 @@ def receipt_pdf_view(request, sale_id):
     except Exception as e:
         messages.error(request, f'Error generating PDF: {str(e)}', extra_tags="danger")
         return redirect('sales:sales_list')
+    

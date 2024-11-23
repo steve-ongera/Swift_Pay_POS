@@ -1,25 +1,11 @@
 {% extends "pos/base.html" %}
 {% load static %}
-<!-- Page title  -->
-{% block title %}Add sale{% endblock title %}
-
-<!-- Specific Page CSS goes HERE  -->
-{% block stylesheets %}
-<!-- Datatables -->
-<link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css ' %}" rel="stylesheet">
-<!--Select2 CSS-->
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@1.5.2/dist/select2-bootstrap4.min.css">
-<!--Bootstrap Touchspin-->
-<link rel="stylesheet" href="{% static 'assets/bootstrap-touchspin-master/src/jquery.bootstrap-touchspin.css' %}">
-{% endblock stylesheets %}
-
-<!-- Page Heading -->
-{% block heading %}Add sale{% endblock heading %}
 
 <!-- Page content  -->
 {% block content %}
 <!--Go back-->
+<main role="main" class="main-content">
+    <div class="container-fluid">
 <div class="row ml-0 mb-3">
     <a href="{% url 'sales:sales_list' %}">
         <button type="button" class="btn btn-info font-weight-bold">
@@ -137,6 +123,8 @@
 
     </div>
 </form>
+</div>
+</main>
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->

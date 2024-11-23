@@ -1,21 +1,10 @@
 {% extends "pos/base.html" %}
 {% load static %}
-<!-- Page title  -->
-{% block title %}Customers{% endblock title %}
-
-<!-- Specific Page CSS goes HERE  -->
-{% block stylesheets %}
-<!-- Datatables -->
-<link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css ' %}" rel="stylesheet">
-<link href="{% static 'css/pagination_buttons.css ' %}" rel="stylesheet">
-{% endblock stylesheets %}
-
-<!-- Page Heading -->
-{% block heading %}Customers{% endblock heading %}
 
 <!-- Page content  -->
 {% block content %}
-
+<main role="main" class="main-content">
+    <div class="container-fluid">
     <!--Create new customer-->
     <div class="row ml-0 mb-3">
         <a href="{% url 'customers:customers_add' %}">
@@ -58,14 +47,14 @@
                                 <!--Update-->
                                 <a href="{% url 'customers:customers_update' c.id %}" class="text-decoration-none">
                                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="tooltip" title="Update customer">
-                                        <i class="fas fa-pen"></i>
+                                        <i class="fe fe-edit "></i>
                                     </button>
                                 </a>
                                 <!--Delete modal-->
                                 <!-- Button trigger modal -->
                                 <a class="text-decoration-none">
                                     <button rel="delete" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal">
-                                        <i class="fas fa-trash"></i>
+                                        <i class="fe fe-trash"></i>
                                     </button>
                                 </a>
                                     
@@ -99,6 +88,8 @@
             </div>
         </div>
     </div>
+</div>
+</main>
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
