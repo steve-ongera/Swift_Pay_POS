@@ -255,7 +255,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 For support and queries:
 - Create an issue
-- Email: support@djangopos.com
+- Email: support@innovationhubsoftwaresltd.com
 - Documentation: [docs.djangopos.com](https://docs.djangopos.com)
 
 ## 🙏 Acknowledgments
