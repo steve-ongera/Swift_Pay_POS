@@ -42,8 +42,11 @@ def index(request):
 
     print(top_products_names)
     print(top_products_quantity)
+     
 
+    latest_orders = Sale.objects.order_by('-date_added')[:5]
     context = {
+        'latest_orders': latest_orders,
         "active_icon": "dashboard",
         "products": Product.objects.all().count(),
         "categories": Category.objects.all().count(),

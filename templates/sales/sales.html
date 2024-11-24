@@ -1,6 +1,20 @@
 {% extends "pos/base.html" %}
 {% load static %}
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<!-- Datatables -->
+<link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css ' %}" rel="stylesheet">
+<!--Select2 CSS-->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@1.5.2/dist/select2-bootstrap4.min.css">
+<!--Bootstrap Touchspin-->
+<link rel="stylesheet" href="{% static 'assets/bootstrap-touchspin-master/src/jquery.bootstrap-touchspin.css' %}">
+{% endblock stylesheets %}
 
+<!-- Page Heading -->
+{% block heading %}Add sale{% endblock heading %}
+
+<!-- Page content  -->
 <!-- Page content  -->
 {% block content %}
 <main role="main" class="main-content">
@@ -25,7 +39,7 @@
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th style="width:5%">#</th>
+                           
                             <th style="width:15%">ID</th>
                             <th style="width:25%">Date</th>
                             <th style="width:20%">Customer</th>
@@ -37,7 +51,7 @@
                     <tbody>
                         {% for s in sales %}
                         <tr>
-                            <td>{{forloop.counter}}</td>
+                            
                             <td>{{s.id}}</td>
                             <td>{{s.date_added}}</td>
                             <td>{{s.customer.get_full_name}}</td>
