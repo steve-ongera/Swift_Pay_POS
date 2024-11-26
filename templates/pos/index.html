@@ -4,6 +4,69 @@
 {% block title %}Dashboard{% endblock title %}
 
 {% block content %}
+<style>
+  /* Consistent number formatting */
+  .number-display {
+      display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+      font-size: 1.5rem; /* Consistent font size */
+  }
+  
+  /* Responsive number formatting for different screen sizes */
+  @media (max-width: 576px) {
+      .number-display {
+          font-size: 1.2rem;
+      }
+  }
+  
+  /* Formatting for very large numbers */
+  .number-display.large-number {
+      font-size: 1.2rem;
+  }
+  
+  /* Helper class for number abbreviation */
+  .abbreviated-number::before {
+      content: attr(data-full-value);
+      display: none;
+  }
+  
+  .abbreviated-number:hover::before {
+      display: inline;
+  }
+  
+  .abbreviated-number {
+      cursor: help;
+  }
+  </style>
+  
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+      function abbreviateNumber(number) {
+          if (number >= 1000000) {
+              return (number / 1000000).toFixed(1) + 'M';
+          } else if (number >= 1000) {
+              return (number / 1000).toFixed(1) + 'K';
+          }
+          return number.toString();
+      }
+  
+      // Apply abbreviation to elements
+      document.querySelectorAll('.number-display').forEach(function(el) {
+          const fullValue = el.textContent.replace('ksh ', '').trim();
+          const numValue = parseFloat(fullValue.replace(/,/g, ''));
+          
+          if (numValue >= 1000) {
+              el.classList.add('abbreviated-number');
+              el.setAttribute('data-full-value', 'ksh ' + fullValue);
+              el.textContent = 'ksh ' + abbreviateNumber(numValue);
+          }
+      });
+  });
+  </script>
+
 <main role="main" class="main-content">
     <div class="container-fluid">
       <div class="row justify-content-center">
@@ -20,7 +83,7 @@
                     </div>
                     <div class="col pr-0">
                       <p class="small text-muted mb-0">Monthly Sales</p>
-                      <span class="h3 mb-0 text-white">ksh {{avg_month}}</span>
+                      <span class="h3 mb-0 text-white number-display">ksh {{avg_month}}</span>
                       <span class="small text-muted">+5.5%</span>
                     </div>
                   </div>
@@ -38,7 +101,7 @@
                     </div>
                     <div class="col pr-0">
                       <p class="small text-muted mb-0">Annual Earning</p>
-                      <span class="h3 mb-0">ksh {{annual_earnings}}</span>
+                        <span class="h3 mb-0 number-display">ksh {{annual_earnings}}</span>
                       <span class="small text-success">+16.5%</span>
                     </div>
                   </div>
@@ -58,7 +121,7 @@
                       <p class="small text-muted mb-0"> products</p>
                       <div class="row align-items-center no-gutters">
                         <div class="col-auto">
-                          <span class="h3 mr-2 mb-0"> {{products}}</span>
+                          <span class="h3 mr-2 mb-0 number-display"> {{products}}</span>
                         </div>
                         <div class="col-md-12 col-lg">
                           <div class="progress progress-sm mt-2" style="height:3px">
@@ -82,7 +145,7 @@
                     </div>
                     <div class="col">
                       <p class="small text-muted mb-0">Categories</p>
-                      <span class="h3 mb-0">{{categories}}</span>
+                       <span class="h3 mb-0 number-display">{{categories}}</span>
                     </div>
                   </div>
                 </div>
