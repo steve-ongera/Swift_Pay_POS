@@ -102,3 +102,8 @@ def index(request):
         'percentage_change': formatted_percentage_change,
     }
     return render(request, "pos/index.html", context)
+
+
+
+def help_and_support(request):
+    return render(request, "pos/help_and_support.html")
