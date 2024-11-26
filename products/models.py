@@ -43,11 +43,7 @@ class Product(models.Model):
 
     price = models.FloatField(default=0)
 
-    barcode_image = models.ImageField(
-        upload_to='barcode_images/', 
-        null=True, 
-        blank=True
-    )
+    #barcode_image = models.ImageField(upload_to='barcode_images/',  null=True,  blank=True )
 
     class Meta:
         # Table's name
