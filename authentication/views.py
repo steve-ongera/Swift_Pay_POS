@@ -28,24 +28,20 @@ def login_view(request):
 
 
 def register_user(request):
-    msg = None
-    success = False
-
     if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()  # Save the user to the database
-            msg = 'User created successfully - please <a href="/login">login</a>.'
-            success = True
-            return redirect('login')
+            messages.success(request, 'User created successfully. ')
+            return redirect('authentication:login')
         else:
             # Show the form errors for debugging
             print(form.errors)  # This will output errors in the console or logs
-            msg = 'Form is not valid'
+            messages.error(request, 'Form is not valid')
     else:
         form = SignUpForm()
 
-    return render(request, "accounts/register.html", {"form": form, "msg": msg, "success": success})
+    return render(request, "accounts/register.html", {"form": form})
 
 
 
