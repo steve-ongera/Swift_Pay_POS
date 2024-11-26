@@ -9,6 +9,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@1.5.2/dist/select2-bootstrap4.min.css">
 <!--Bootstrap Touchspin-->
 <link rel="stylesheet" href="{% static 'assets/bootstrap-touchspin-master/src/jquery.bootstrap-touchspin.css' %}">
+<!-- Datatables -->
+<link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css ' %}" rel="stylesheet">
+<link href="{% static 'css/pagination_buttons.css ' %}" rel="stylesheet">
 {% endblock stylesheets %}
 
 <!-- Page Heading -->
@@ -17,6 +20,7 @@
 <!-- Page content  -->
 <!-- Page content  -->
 {% block content %}
+
 <main role="main" class="main-content">
     <div class="container-fluid">
     <!--Create new sale-->
@@ -76,7 +80,10 @@
                     </tbody>
                 </table>
             </div>
+
+            
         </div>
+             
     </div>
 
 </div>
