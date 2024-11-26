@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .models import Customer
+from django.shortcuts import get_object_or_404
 
 
 @login_required(login_url="/accounts/login/")
@@ -55,62 +56,49 @@ def customers_add_view(request):
 
     return render(request, "customers/customers_add.html", context=context)
 
-
 @login_required(login_url="/accounts/login/")
 def customers_update_view(request, customer_id):
-    """
-    Args:
-        request:
-        customer_id : The customer's ID that will be updated
-    """
+    # Get the customer object or show 404 if not found
+    customer = get_object_or_404(Customer, id=customer_id)
 
-    # Get the customer
-    try:
-        # Get the customer to update
-        customer = Customer.objects.get(id=customer_id)
-    except Exception as e:
-        messages.success(
-            request, 'There was an error trying to get the customer!', extra_tags="danger")
-        print(e)
-        return redirect('customers:customers_list')
+    if request.method == 'POST':
+        try:
+            # Get form data
+            data = request.POST
 
+            # Check if a different customer with the same attributes exists
+            if Customer.objects.filter(
+                first_name=data['first_name'],
+                last_name=data['last_name'],
+                email=data['email']
+            ).exclude(id=customer.id).exists():
+                messages.warning(request, 'A customer with similar details already exists.')
+                return redirect('customers:customers_update', customer_id=customer_id)
+
+            # Update the customer's details
+            customer.first_name = data['first_name']
+            customer.last_name = data['last_name']
+            customer.address = data['address']
+            customer.email = data['email']
+            customer.phone = data['phone']
+            customer.save()
+
+            # Success message
+            messages.success(
+                request, f'Customer "{customer.get_full_name()}" updated successfully!'
+            )
+            return redirect('customers:customers_list')
+        except Exception as e:
+            messages.error(request, 'An error occurred while updating the customer.')
+            print(e)
+            return redirect('customers:customers_update', customer_id=customer_id)
+
+    # Render the update form
     context = {
         "active_icon": "customers",
         "customer": customer,
     }
-
-    if request.method == 'POST':
-        try:
-            # Save the POST arguments
-            data = request.POST
-
-            attributes = {
-                "first_name": data['first_name'],
-                "last_name": data['last_name'],
-                "address": data['address'],
-                "email": data['email'],
-                "phone": data['phone'],
-            }
-
-            # Check if a customer with the same attributes exists
-            if Customer.objects.filter(**attributes).exists():
-                messages.error(request, 'Customer already exists!',
-                               extra_tags="warning")
-                return redirect('customers:customers_add')
-
-            customer = Customer.objects.get(id=customer_id)
-
-            messages.success(request, '¡Customer: ' + customer.get_full_name() +
-                             ' updated successfully!', extra_tags="success")
-            return redirect('customers:customers_list')
-        except Exception as e:
-            messages.success(
-                request, 'There was an error during the update!', extra_tags="danger")
-            print(e)
-            return redirect('customers:customers_list')
-
     return render(request, "customers/customers_update.html", context=context)
-
 
 @login_required(login_url="/accounts/login/")
 def customers_delete_view(request, customer_id):
