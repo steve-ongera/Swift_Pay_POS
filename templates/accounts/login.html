@@ -58,7 +58,15 @@
               <input type="checkbox" value="remember-me"> Stay logged in </label>
           </div>
           <button  type="submit" name="login"class="btn btn-lg btn-primary btn-block" >Let me in</button>
-          <p class="mt-5 mb-3 text-muted">© 2023 | InnovationHub Ltd</p>
+
+          <div class="mt-3 text-center">
+            <p class="text-muted">Don't have an account? 
+              <a href="{% url 'authentication:register'%}" class="text-primary">regsiter</a>
+            </p>
+          </div>
+
+
+          <p class="mt-5 mb-3 text-muted">© 2024 | InnovationHub Ltd</p>
         </form>
       </div>
     </div>
