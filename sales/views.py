@@ -25,7 +25,7 @@ def is_ajax(request):
 def sales_list_view(request):
     context = {
         "active_icon": "sales",
-        "sales": Sale.objects.all()
+        "sales": Sale.objects.all().order_by('-date_added')  # Order by recent sales
     }
     return render(request, "sales/sales.html", context=context)
 

@@ -29,6 +29,8 @@ class Sale(models.Model):
     class Meta:
         db_table = 'Sales'
 
+        ordering = ['-date_added']  # Default ordering by most recent
+
     def __str__(self) -> str:
         return "Sale ID: " + str(self.id) + " | Grand Total: " + str(self.grand_total) + " | Datetime: " + str(self.date_added)
 
