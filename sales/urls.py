@@ -15,4 +15,5 @@ urlpatterns = [
     path("pdf/<str:sale_id>",
          views.receipt_pdf_view, name="sales_receipt_pdf"),
     path('search-order/', views.search_order, name='search_order'),
+   
 ]
