@@ -1,6 +1,7 @@
-# Django Point of Sale (POS) System
+# Swift Pay (POS) System
 
-A robust and user-friendly Point of Sale system built with Django, designed for small to medium-sized retail businesses. This system provides comprehensive sales management, inventory tracking, and reporting capabilities.
+SwiftPay is a cutting-edge Point-of-Sale (POS) system designed to streamline transactions for businesses of all sizes. With an intuitive interface, real-time reporting, and secure payment processing, SwiftPay ensures seamless sales management. Features include inventory tracking, customer management, QR code generation, and integration with various payment platforms. SwiftPay is the ultimate solution for efficient, fast, and reliable point-of-sale operations.
+
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Python](https://img.shields.io/badge/python-3.8%2B-blue)
