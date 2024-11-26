@@ -6,10 +6,45 @@ from django.db.models.functions import Coalesce
 from django.shortcuts import render
 from products.models import Product, Category
 from sales.models import Sale
-
+from django.utils.timezone import localdate
+from django.utils.timezone import localdate, timedelta ,now
 
 @login_required(login_url="/accounts/login/")
 def index(request):
+    today = now().date()
+    yesterday = today - timedelta(days=1)
+
+    # Calculate total sales for today
+    total_sales_today = (
+        Sale.objects.filter(date_added__date=today)
+        .aggregate(total=Sum('grand_total'))
+        .get('total', 0) or 0
+    )
+
+    # Calculate total sales for yesterday
+    total_sales_yesterday = (
+        Sale.objects.filter(date_added__date=yesterday)
+        .aggregate(total=Sum('grand_total'))
+        .get('total', 0) or 0
+    )
+
+    # Calculate the percentage change
+    if total_sales_yesterday > 0:
+        percentage_change = ((total_sales_today - total_sales_yesterday) / total_sales_yesterday) * 100
+    else:
+        percentage_change = 100 if total_sales_today > 0 else 0
+
+    # Determine if the change is an increase or decrease
+    if percentage_change > 0:
+        change_type = "increase"
+    elif percentage_change < 0:
+        change_type = "decrease"
+    else:
+        change_type = "no change"
+
+    # Format the percentage change
+    formatted_percentage_change = f"{abs(percentage_change):.2f}% {change_type}"
+
     today = date.today()
 
     year = today.year
@@ -32,7 +67,10 @@ def index(request):
     # Top-selling products
     top_products = Product.objects.annotate(quantity_sum=Sum(
         'saledetail__quantity')).order_by('-quantity_sum')[:3]
-
+    # Get today's sales
+    today_sales = Sale.objects.filter(date_added__date=localdate())
+    # Calculate total sales for today
+    total_sales_today = Sale.objects.filter(date_added__date=localdate()).aggregate(Sum('grand_total'))['grand_total__sum'] or 0
     top_products_names = []
     top_products_quantity = []
 
@@ -46,6 +84,8 @@ def index(request):
 
     latest_orders = Sale.objects.order_by('-date_added')[:5]
     context = {
+        'sales': today_sales,
+        'total_sales': total_sales_today,
         'latest_orders': latest_orders,
         "active_icon": "dashboard",
         "products": Product.objects.all().count(),
@@ -56,5 +96,9 @@ def index(request):
         "top_products_names": json.dumps(top_products_names),
         "top_products_names_list": top_products_names,
         "top_products_quantity": json.dumps(top_products_quantity),
+
+        'total_sales_today': total_sales_today,
+        'total_sales_yesterday': total_sales_yesterday,
+        'percentage_change': formatted_percentage_change,
     }
     return render(request, "pos/index.html", context)
